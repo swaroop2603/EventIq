@@ -4,9 +4,7 @@ import com.EventIq.EventIq.Entities.enums.TransactionAction;
 import com.EventIq.EventIq.Entities.enums.TransactionStatus;
 import com.EventIq.EventIq.Entities.enums.TransactionType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;
@@ -15,7 +13,8 @@ import java.util.UUID;
 @Entity
 @NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Getter
+@Setter
 public class Transactions {
 
     @GeneratedValue(strategy = GenerationType.UUID)

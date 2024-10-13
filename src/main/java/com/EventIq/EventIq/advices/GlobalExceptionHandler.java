@@ -1,5 +1,6 @@
 package com.EventIq.EventIq.advices;
-
+import com.EventIq.EventIq.ExceptionHandlers.ResourceNotFoundException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -25,12 +26,30 @@ public class GlobalExceptionHandler {
                 .build();
         return new ResponseEntity<>(new ApiResponse<>(apiError),apiError.getStatus());
     }
+
+    @ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<ApiResponse<?>> handleResourseNotFoundException(ResourceNotFoundException e){
+        ApiError apiError=ApiError.builder()
+                .status(HttpStatus.NOT_FOUND)
+                .message(e.getMessage())
+                .build();
+        return new ResponseEntity<>(new ApiResponse<>(apiError),HttpStatus.NOT_FOUND);
+    }
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<ApiResponse<?>> handleAuthenticationException(AuthenticationException e){
+        ApiError apiError=ApiError.builder()
+                .status(HttpStatus.UNAUTHORIZED)
+                .message(e.getMessage())
+                .build();
+        return new ResponseEntity<>(new ApiResponse<>(apiError),HttpStatus.UNAUTHORIZED);
+    }
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse<?>> handleException(Exception exception){
+
         ApiError apiError=ApiError.builder()
-                        .status(HttpStatus.INTERNAL_SERVER_ERROR)
-                        .message(exception.getMessage())
-                        .build();
+                .status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .message(exception.getMessage())
+                .build();
         return new ResponseEntity<>(new ApiResponse<>(apiError),apiError.getStatus());
     }
 }

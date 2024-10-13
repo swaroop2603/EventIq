@@ -1,6 +1,5 @@
 package com.EventIq.EventIq.Services.Impl;
 
-import com.EventIq.EventIq.Dtos.LoginDto;
 import com.EventIq.EventIq.Dtos.SignupDto;
 import com.EventIq.EventIq.Dtos.UserDto;
 import com.EventIq.EventIq.Entities.UserTable;
@@ -9,6 +8,9 @@ import com.EventIq.EventIq.Repositories.UserRepo;
 import com.EventIq.EventIq.Services.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,7 +22,19 @@ public class AuthServiceImpl implements AuthService {
     private final UserRepo userRepo;
     private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
+    private final AuthenticationManager authenticationManager;
 
+    public String login(String email, String password) {
+        System.out.println(email);
+
+            Authentication authentication = authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(email, password)
+            );
+            UserTable user = (UserTable) authentication.getPrincipal();
+
+            return "login successful";
+
+    }
     @Override
     public UserDto signUp(SignupDto signupDto) {
         UserTable userExists=userRepo.findByEmail(signupDto.getEmail()).orElse(null);
@@ -34,8 +48,6 @@ public class AuthServiceImpl implements AuthService {
         return modelMapper.map(createdUser,UserDto.class);
     }
 
-    @Override
-    public void login(LoginDto loginDto) {
 
-    }
+
 }

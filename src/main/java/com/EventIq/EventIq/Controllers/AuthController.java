@@ -1,5 +1,7 @@
 package com.EventIq.EventIq.Controllers;
 
+import com.EventIq.EventIq.Dtos.LoginDto;
+import com.EventIq.EventIq.Dtos.LoginResponseDto;
 import com.EventIq.EventIq.Dtos.SignupDto;
 import com.EventIq.EventIq.Dtos.UserDto;
 import com.EventIq.EventIq.Services.AuthService;
@@ -14,15 +16,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/auth")
 @RequiredArgsConstructor
-//@Validated
 public class AuthController {
 
     final AuthService authService;
     @PostMapping("/signup")
-    ResponseEntity<UserDto> signUp(@Valid @RequestBody SignupDto signupDto){
-
-
+    public ResponseEntity<UserDto> signUp(@Valid @RequestBody SignupDto signupDto){
         return ResponseEntity.ok(authService.signUp(signupDto));
+    }
+    @PostMapping("/login")
+    public ResponseEntity<LoginResponseDto> login(@Valid @RequestBody LoginDto loginDto){
+       String response=authService.login(loginDto.getEmail(),loginDto.getPassword());
+       System.out.println(response);
+        return ResponseEntity.ok(new LoginResponseDto(response));
     }
 
 }
