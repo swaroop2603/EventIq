@@ -1,5 +1,6 @@
 package com.EventIq.EventIq.Services.Impl;
 
+import com.EventIq.EventIq.Entities.UserTable;
 import com.EventIq.EventIq.ExceptionHandlers.ResourceNotFoundException;
 import com.EventIq.EventIq.Repositories.UserRepo;
 import lombok.RequiredArgsConstructor;
@@ -8,6 +9,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class UserService implements UserDetailsService {
@@ -15,5 +18,9 @@ public class UserService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepo.findByEmail(username).orElseThrow(()->new ResourceNotFoundException("user with email not found"));
+    }
+
+    public UserTable getUserById(UUID userId){
+        return userRepo.findById(userId).orElseThrow(()->new ResourceNotFoundException("User not found"));
     }
 }

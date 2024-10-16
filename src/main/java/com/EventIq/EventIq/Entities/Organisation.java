@@ -34,6 +34,9 @@ public class Organisation {
 
     private String organisationAddress;
 
+    @Column(columnDefinition ="boolean default false" )
+    private boolean isOrganisationApproved=false;
+
     @CreationTimestamp
     private LocalDateTime createdAt;
 

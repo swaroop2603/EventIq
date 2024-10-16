@@ -5,6 +5,7 @@ import com.EventIq.EventIq.Dtos.UserDto;
 import com.EventIq.EventIq.Entities.UserTable;
 import com.EventIq.EventIq.Entities.enums.UserRoles;
 import com.EventIq.EventIq.Repositories.UserRepo;
+import com.EventIq.EventIq.Security.JWTService;
 import com.EventIq.EventIq.Services.AuthService;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -23,16 +24,17 @@ public class AuthServiceImpl implements AuthService {
     private final ModelMapper modelMapper;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
-
-    public String login(String email, String password) {
+    private final JWTService jwtService;
+    public String[] login(String email, String password) {
         System.out.println(email);
 
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(email, password)
             );
             UserTable user = (UserTable) authentication.getPrincipal();
-
-            return "login successful";
+            String accessToken=jwtService.generateAccessToken(user);
+            String refreshToken=jwtService.generateRefreshToken(user);
+            return new String[]{accessToken,refreshToken};
 
     }
     @Override
