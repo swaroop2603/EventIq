@@ -1,4 +1,4 @@
-package com.EventIq.EventIq.Dtos;
+package com.EventIq.EventIq.Dtos.LoginAndSignUpDtos;
 
 import com.EventIq.EventIq.Entities.enums.Gender;
 import com.EventIq.EventIq.annotations.AgeValidator;

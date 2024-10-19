@@ -2,7 +2,10 @@ package com.EventIq.EventIq.Entities;
 
 import com.EventIq.EventIq.Entities.enums.Gender;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Set;
 import java.util.UUID;

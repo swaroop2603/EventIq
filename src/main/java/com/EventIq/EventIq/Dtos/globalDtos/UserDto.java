@@ -1,4 +1,4 @@
-package com.EventIq.EventIq.Dtos;
+package com.EventIq.EventIq.Dtos.globalDtos;
 
 import com.EventIq.EventIq.Entities.enums.Gender;
 import lombok.AllArgsConstructor;

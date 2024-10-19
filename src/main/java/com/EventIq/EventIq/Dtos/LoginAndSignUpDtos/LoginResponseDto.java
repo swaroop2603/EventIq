@@ -1,4 +1,4 @@
-package com.EventIq.EventIq.Dtos;
+package com.EventIq.EventIq.Dtos.LoginAndSignUpDtos;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

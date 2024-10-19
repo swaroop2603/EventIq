@@ -1,8 +1,11 @@
 package com.EventIq.EventIq.advices;
+
+import com.EventIq.EventIq.ExceptionHandlers.InvalidRequestException;
 import com.EventIq.EventIq.ExceptionHandlers.ResourceNotFoundException;
-import org.springframework.security.core.AuthenticationException;
+import com.EventIq.EventIq.ExceptionHandlers.UnAuthorizedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -42,6 +45,22 @@ public class GlobalExceptionHandler {
                 .message(e.getMessage())
                 .build();
         return new ResponseEntity<>(new ApiResponse<>(apiError),HttpStatus.UNAUTHORIZED);
+    }
+    @ExceptionHandler(UnAuthorizedException.class)
+    public ResponseEntity<ApiResponse<?>> handleUnAuthorizedException(UnAuthorizedException e){
+        ApiError apiError=ApiError.builder()
+                .status(HttpStatus.UNAUTHORIZED)
+                .message(e.getMessage())
+                .build();
+        return new ResponseEntity<>(new ApiResponse<>(apiError),HttpStatus.UNAUTHORIZED);
+    }
+    @ExceptionHandler(UnAuthorizedException.class)
+    public ResponseEntity<ApiResponse<?>> handleInvalidRequestException(InvalidRequestException e){
+        ApiError apiError=ApiError.builder()
+                .status(HttpStatus.FORBIDDEN)
+                .message(e.getMessage())
+                .build();
+        return new ResponseEntity<>(new ApiResponse<>(apiError),HttpStatus.FORBIDDEN);
     }
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ApiResponse<?>> handleException(Exception exception){

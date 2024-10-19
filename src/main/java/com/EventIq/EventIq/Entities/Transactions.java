@@ -4,7 +4,10 @@ import com.EventIq.EventIq.Entities.enums.TransactionAction;
 import com.EventIq.EventIq.Entities.enums.TransactionStatus;
 import com.EventIq.EventIq.Entities.enums.TransactionType;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.LocalDateTime;

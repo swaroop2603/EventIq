@@ -1,5 +1,6 @@
 package com.EventIq.EventIq.Services.Impl;
 
+import com.EventIq.EventIq.Entities.Organisation;
 import com.EventIq.EventIq.Entities.UserTable;
 import com.EventIq.EventIq.ExceptionHandlers.ResourceNotFoundException;
 import com.EventIq.EventIq.Repositories.UserRepo;
@@ -22,5 +23,12 @@ public class UserService implements UserDetailsService {
 
     public UserTable getUserById(UUID userId){
         return userRepo.findById(userId).orElseThrow(()->new ResourceNotFoundException("User not found"));
+    }
+
+    public void updateUserOrganisation(Organisation organisation){
+        UserTable userTable1=organisation.getUser();
+
+        userTable1.getOrganisations().add(organisation);
+        userRepo.save(userTable1);
     }
 }

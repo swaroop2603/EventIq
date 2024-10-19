@@ -1,5 +1,6 @@
 package com.EventIq.EventIq.Entities;
 
+import com.EventIq.EventIq.Entities.enums.RequestOrganisationStatus;
 import jakarta.persistence.*;
 import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
@@ -14,6 +15,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 public class Organisation {
 
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -34,8 +36,8 @@ public class Organisation {
 
     private String organisationAddress;
 
-    @Column(columnDefinition ="boolean default false" )
-    private boolean isOrganisationApproved=false;
+    @Enumerated(EnumType.STRING)
+    private RequestOrganisationStatus organisationStatus;
 
     @CreationTimestamp
     private LocalDateTime createdAt;

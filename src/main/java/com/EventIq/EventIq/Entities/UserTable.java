@@ -3,7 +3,10 @@ package com.EventIq.EventIq.Entities;
 import com.EventIq.EventIq.Entities.enums.Gender;
 import com.EventIq.EventIq.Entities.enums.UserRoles;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -55,7 +58,7 @@ public class UserTable implements UserDetails {
     private Set<UserRoles> role;
 
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user",fetch = FetchType.EAGER)
     private Set<Organisation> organisations;
 
     @OneToMany(mappedBy = "user")
@@ -80,6 +83,6 @@ public class UserTable implements UserDetails {
 
     @Override
     public String getUsername() {
-        return "";
+        return email;
     }
 }

@@ -1,7 +1,7 @@
 package com.EventIq.EventIq.Services.Impl;
 
-import com.EventIq.EventIq.Dtos.SignupDto;
-import com.EventIq.EventIq.Dtos.UserDto;
+import com.EventIq.EventIq.Dtos.LoginAndSignUpDtos.SignupDto;
+import com.EventIq.EventIq.Dtos.globalDtos.UserDto;
 import com.EventIq.EventIq.Entities.UserTable;
 import com.EventIq.EventIq.Entities.enums.UserRoles;
 import com.EventIq.EventIq.Repositories.UserRepo;
